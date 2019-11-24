@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Presents from './../api/presents';
+
 class PresentForm extends React.Component {
   state = {
     present: {
@@ -9,7 +11,8 @@ class PresentForm extends React.Component {
       presentReceiver: '',
       presentCreatedAt: '',
       presentCreatedBy: '',
-    }
+    },
+    error: null
   }
   presentTitleRef = React.createRef();
 
@@ -28,6 +31,25 @@ class PresentForm extends React.Component {
     const present = this.state.present;
     present["presentCreatedAt"] = new Date().toISOString();
     this.setState({ present });
+    Presents.insert(this.state.present, (err, insertedPresentId) => {
+      if (err) {
+        this.setState({ error: err})
+      } else {
+        console.log('insertedPresentId', insertedPresentId);
+        this.setState({
+          present: {
+            presentTitle: '',
+            presentDescription: '',
+            presentPrice: '',
+            presentReceiver: '',
+            presentCreatedAt: '',
+            presentCreatedBy: '',
+          },
+          error: null
+        });
+        this.presentTitleRef.current.focus();
+      }
+    });
   }
   
   render() { 
