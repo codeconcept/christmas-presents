@@ -2,3 +2,11 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}

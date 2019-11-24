@@ -6,7 +6,8 @@ class Register extends React.Component {
     user: {
       email: '',
       password: ''
-    }
+    },
+    wantToRegister: true
   }
 
   userEmailRef = createRef();
@@ -21,33 +22,68 @@ class Register extends React.Component {
     this.setState({ user });
   }
 
+  toggleCheckbox = () => {
+    this.setState({ wantToRegister: !this.state.wantToRegister });
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state.user;
-    Accounts.createUser({ email, password }, (error, user) => {
-      if (error) {
-        console.error(error)
-      } else {
-        // to make sure the user exists, launch a console in the dev tools and type
-        // Meteor.users.find().fetch()
-        console.log('user', user);
-      }
-    });
+    if (this.state.wantToRegister) {
+      Accounts.createUser({ email, password }, (error, user) => {
+        if (error) {
+          console.error(error)
+        } else {
+          // to make sure the user exists, launch a console in the dev tools and type
+          // Meteor.users.find().fetch()
+          console.log('user', user);
+        }
+      });
+    } else {
+      Meteor.loginWithPassword(email, password, error => {
+        if (error) {
+          console.log(error);
+        } else {
+          // todo redirect to index page
+        }
+      });
+    }
   }
 
   render() { 
     const { email, password } = this.state.user;
+    const { wantToRegister } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <fieldset>
-          <legend>Créer un utilisateur</legend>
-          <label htmlFor="email">Email</label><br />
-          <input value={email} onChange={this.handleChange} ref={this.userEmailRef} type="text" name="email" id="email" placeholder="email" /><br />
-          <label htmlFor="password">Mot de passe</label><br />
-          <input value={password} onChange={this.handleChange} type="password" name="password" id="password" placeholder="password" /><br/>
-          <button>créer</button>
-        </fieldset>
-      </form>
+      <>
+        <br/><br/>
+        <label htmlFor="login">J'ai déjà un compte, je souhaite me connecter</label>{" "}
+        <input type="checkbox" name="login" id="login" checked={!wantToRegister} value={wantToRegister} onChange={this.toggleCheckbox} /><br/><br/>
+        {wantToRegister && (
+          <form onSubmit={this.handleSubmit}>
+            <fieldset>
+              <legend>Créer un utilisateur</legend>
+              <label htmlFor="email">Email</label><br />
+              <input value={email} onChange={this.handleChange} ref={this.userEmailRef} type="text" name="email" id="email" placeholder="email" /><br />
+              <label htmlFor="password">Mot de passe</label><br />
+              <input value={password} onChange={this.handleChange} type="password" name="password" id="password" placeholder="password" /><br/><br/>
+              <button>créer</button>
+            </fieldset>
+          </form>          
+        )}
+
+        {!wantToRegister && (
+          <form onSubmit={this.handleSubmit}>
+            <fieldset>
+              <legend>Se connecter</legend>
+              <label htmlFor="email">Email</label><br />
+              <input value={email} onChange={this.handleChange} ref={this.userEmailRef} type="text" name="email" id="email" placeholder="email" /><br />
+              <label htmlFor="password">Mot de passe</label><br />
+              <input value={password} onChange={this.handleChange} type="password" name="password" id="password" placeholder="password" /><br/><br/>
+              <button>se connecter</button>
+            </fieldset>
+          </form>
+        )}
+      </>
     );
   }
 }
