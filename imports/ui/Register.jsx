@@ -28,11 +28,11 @@ class Register extends React.Component {
       if (error) {
         console.error(error)
       } else {
+        // to make sure the user exists, launch a console in the dev tools and type
+        // Meteor.users.find().fetch()
         console.log('user', user);
       }
     });
-    // to make sure the user exists, launch a console in the dev tools and type
-    // Meteor.users.find().fetch()
   }
 
   render() { 
