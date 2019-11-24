@@ -8,6 +8,7 @@ class NavBar extends React.Component {
         <NavLink to="/">Accueil</NavLink>{" "}
         <NavLink to="/presents">Cadeaux</NavLink>{" "}
         <NavLink to="/info">Info</NavLink>{" "}
+        <NavLink to="/register">Inscription</NavLink>{" "}
       </>
     );
   }

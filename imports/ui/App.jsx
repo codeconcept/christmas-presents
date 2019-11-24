@@ -6,6 +6,7 @@ import PresentList from './PresentList.jsx';
 import NavBar from './NavBar.jsx';
 
 import Home from './Home';
+import Register from './Register';
 
 const App = () => (
   <div>
@@ -13,6 +14,7 @@ const App = () => (
     <Route exact path="/" component={Home} />
     <Route path="/presents" component={PresentList} />
     <Route path="/info" component={Info} />
+    <Route path="/register" component={Register} />
   </div>
 );
 
