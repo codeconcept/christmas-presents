@@ -1,13 +1,17 @@
 import React from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
 import Presents from '../api/presents';
+import PresentDetails from './PresentDetails';
 
 class PresentList extends React.Component {
   state = {  }
   render() { 
     const {presents} = this.props
     return (
-      <div><code><pre>{JSON.stringify(presents)}</pre></code></div>
+      <div>
+        {presents.map(p => <PresentDetails key={p._id} present={p} /> )}
+        
+      </div>
     );
   }
 }

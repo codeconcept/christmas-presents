@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import Info from './Info.jsx';
 import PresentList from './PresentList.jsx';
-import NavBar from './NavBar.js';
+import NavBar from './NavBar.jsx';
 
 import Home from './Home';
 
