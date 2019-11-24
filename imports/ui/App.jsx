@@ -1,16 +1,18 @@
 import React from 'react';
-import Hello from './Hello.jsx';
+import { Route } from 'react-router-dom';
+
 import Info from './Info.jsx';
 import PresentList from './PresentList.jsx';
 import NavBar from './NavBar.js';
 
+import Home from './Home';
+
 const App = () => (
   <div>
-    <h1>Cadeaux de Noël 2019</h1>
     <NavBar />
-    <PresentList />
-    <Hello />
-    <Info />
+    <Route exact path="/" component={Home} />
+    <Route path="/presents" component={PresentList} />
+    <Route path="/info" component={Info} />
   </div>
 );
 
