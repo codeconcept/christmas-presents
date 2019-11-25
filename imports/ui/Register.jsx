@@ -7,7 +7,8 @@ class Register extends React.Component {
       email: '',
       password: ''
     },
-    wantToRegister: true
+    wantToRegister: true,
+    error: null
   }
 
   userEmailRef = createRef();
@@ -32,11 +33,13 @@ class Register extends React.Component {
     if (this.state.wantToRegister) {
       Accounts.createUser({ email, password }, (error, user) => {
         if (error) {
-          console.error(error)
+          console.error(error);
+          this.setState({ error });
         } else {
           // to make sure the user exists, launch a console in the dev tools and type
           // Meteor.users.find().fetch()
           console.log('user', user);
+          this.setState({ error: null });
         }
       });
     } else {
@@ -52,7 +55,7 @@ class Register extends React.Component {
 
   render() { 
     const { email, password } = this.state.user;
-    const { wantToRegister } = this.state;
+    const { wantToRegister, error } = this.state;
     return (
       <>
         <br/><br/>
@@ -83,6 +86,8 @@ class Register extends React.Component {
             </fieldset>
           </form>
         )}
+
+        {error && (<pre><code>{JSON.stringify(error, null, 4)}</code></pre>)}
       </>
     );
   }
