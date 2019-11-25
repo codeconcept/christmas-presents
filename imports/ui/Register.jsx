@@ -41,7 +41,7 @@ class Register extends React.Component {
           console.log('user', user);
           this.setState({ error: null });
           //redirect to present list page
-          this.props.history.push('/presents');
+          this.props.history.replace('/presents');
         }
       });
     } else {
@@ -50,7 +50,7 @@ class Register extends React.Component {
           console.log(error);
         } else {
           //redirect to present list page
-          this.props.history.push('/presents');
+          this.props.history.replace('/presents');
         }
       });
     }
