@@ -1,9 +1,10 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-const Logout = () => {
+const Logout = props => {
   handleDisconnect = () => {
-    Meteor.logout()
+    Meteor.logout();
+    props.history.push('/');
   }
   return (
     <>

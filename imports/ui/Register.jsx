@@ -40,6 +40,8 @@ class Register extends React.Component {
           // Meteor.users.find().fetch()
           console.log('user', user);
           this.setState({ error: null });
+          //redirect to present list page
+          this.props.history.push('/presents');
         }
       });
     } else {
@@ -47,7 +49,8 @@ class Register extends React.Component {
         if (error) {
           console.log(error);
         } else {
-          // todo redirect to index page
+          //redirect to present list page
+          this.props.history.push('/presents');
         }
       });
     }
