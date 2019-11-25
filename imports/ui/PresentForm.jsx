@@ -20,6 +20,16 @@ class PresentForm extends React.Component {
     this.presentTitleRef.current.focus();
   }
 
+  getUsername = () => {
+    // We do NOT synchronize props and state, we use either one
+    // as synchronizing props and state is a source of problems
+    if (this.props.profile && this.props.profile.emails && this.props.profile.emails.length) {
+      return this.props.profile.emails[0].address;
+    } else {
+      return this.state.present.presentCreatedBy;
+    }
+  }
+
   handleChange = e => {
     const present = this.state.present;
     present[e.currentTarget.name] = e.currentTarget.value;
@@ -30,6 +40,7 @@ class PresentForm extends React.Component {
     e.preventDefault();
     const present = this.state.present;
     present["presentCreatedAt"] = new Date().toISOString();
+    present["presentCreatedBy"] = this.state.present.presentCreatedBy || this.getUsername()
     this.setState({ present });
     Presents.insert(this.state.present, (err, insertedPresentId) => {
       if (err) {
@@ -89,7 +100,7 @@ class PresentForm extends React.Component {
               name="presentReceiver" /><br /><br />
             <label htmlFor="presentCreatedBy">Idée cadeau ajoutée par</label><br/>
             <input
-              value={this.state.present.presentCreatedBy}
+              value={this.state.present.presentCreatedBy || this.getUsername()}
               onChange={this.handleChange}
               type="text"
               id="presentCreatedBy"
