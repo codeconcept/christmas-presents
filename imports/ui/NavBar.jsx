@@ -10,9 +10,9 @@ class NavBar extends React.Component {
     } 
     return (
       <>
-        <NavLink to="/">Accueil</NavLink>{"  "}
-        <NavLink to="/presents">Cadeaux</NavLink>{"  "}
-        <NavLink to="/info">Info</NavLink>{"  "}
+        <NavLink exact to="/" activeClassName="active">Accueil</NavLink>{"  "}
+        <NavLink to="/presents" activeClassName="active">Cadeaux</NavLink>{"  "}
+        <NavLink to="/info" activeClassName="active">Info</NavLink>{"  "}
         {
           email ? (<NavLink to="/logout">déconnecter {email}</NavLink>) : (<NavLink to="/register">Inscription / Connection</NavLink>)
         }
